@@ -1,0 +1,5 @@
+.venv/
+output/
+cell_counts.csv
+__pycache__/
+*.pyc
