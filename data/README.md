@@ -20,10 +20,12 @@
    ```python
    from skimage import data
    from skimage.io import imsave
-   import numpy as np
-   img = data.cells()  # 细胞图像（灰度）
+   img = data.cell()  # 细胞图像（灰度）
    imsave('data/example_cells.tif', img)
    ```
+
+> 本仓库已内置一张示例图 `data/sample_cells.tif`（来自 skimage 自带数据），
+> 克隆下来后可直接运行 `python segment_cells.py data/sample_cells.tif` 体验完整流程。
 
 ## 输出
 

@@ -62,6 +62,9 @@ cell-segmentation-demo/
 ## 快速开始
 
 ```bash
+# 0. 仓库自带示例图 data/sample_cells.tif，克隆后可直接运行：
+python segment_cells.py data/sample_cells.tif --save-labels -o output/result.csv
+
 # 1. 创建虚拟环境（建议）
 python -m venv .venv
 .venv\Scripts\activate          # Windows

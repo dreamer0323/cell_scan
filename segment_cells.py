@@ -44,7 +44,7 @@ def count_cells_watershed(image, channel=None, min_area=50, min_distance=10):
     # Threshold
     thresh = filters.threshold_otsu(img)
     binary = img > thresh
-    binary = morphology.remove_small_objects(binary, min_size=min_area)
+    binary = morphology.remove_small_objects(binary, max_size=min_area)
 
     # Distance transform
     distance = ndimage.distance_transform_edt(binary)
@@ -102,7 +102,7 @@ def count_cells_basic(image, channel=None, threshold_method='otsu', min_area=50)
         thresh = float(threshold_method)
 
     binary = img > thresh
-    binary = morphology.remove_small_objects(binary, min_size=min_area)
+    binary = morphology.remove_small_objects(binary, max_size=min_area)
 
     # Label
     labels = measure.label(binary)
@@ -149,7 +149,9 @@ def process_single_image(image_path, args):
 
     # Save labeled image if requested
     if args.save_labels:
-        label_path = Path(image_path).stem + '_labels.tif'
+        out_dir = Path(args.output).parent
+        out_dir.mkdir(parents=True, exist_ok=True)
+        label_path = out_dir / (Path(image_path).stem + '_labels.tif')
         tifffile.imwrite(label_path, labels.astype(np.uint16))
         print(f"Saved labels to {label_path}")
 
@@ -226,6 +228,7 @@ def main():
 
     # Save results
     if results is not None:
+        Path(args.output).parent.mkdir(parents=True, exist_ok=True)
         results.to_csv(args.output, index=False)
         print(f"\nResults saved to {args.output}")
         print(f"\nSummary:")
