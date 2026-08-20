@@ -1,4 +1,5 @@
 .venv/
+_venv_test/   # 残留的旧 venv（VS Code 关闭后可删除）
 output/
 cell_counts.csv
 __pycache__/
